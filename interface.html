@@ -1,32 +1,209 @@
-<!DOCTYPE html>  
-<html lang="fr">  
-<head>  
-    <meta charset="UTF-8">  
-    <title>Gestion des Patients et Médecins</title>  
-    <link rel="stylesheet" href="style.css">  
-</head>  
-<body style="background-color: #eef;">  
+<!DOCTYPE html>
+<html lang="fr">
 
-<header>  
-    <h1>Gestion Des Patients Et Médecins</h1>  
-</header>  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de clinique</title>
 
-<nav>  
-    <ul>  
-        <li><a href="patients.php" >Patients</a></li>  
-        <li><a href="doctor.php" >Médecins</a></li>  
-        <li><a href="nurses.php">Infirmiers</a></li>  
-        <li><a href="accountants.php">Comptables</a></li>  
-        <li><a href="appointments.php">Rendez-vous</a></li>  
-    </ul>  
-</nav>  
+    <!-- Liens externes pour les icônes et les polices -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
-<div class="container">  
-    <h2>Tableau De Contrôle</h2>  
-    <p>Utilisez les boutons ci-dessous pour gérer les médecins et les patients.</p>  
-    <a href="doctor.php" class="btn">Gérer Médecins</a>  
-    <a href="patients.php" class="btn">Gérer Patients</a>  
-</div>  
+    <style>
+        /* Styles généraux */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-</body>  
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0288d1, #b3e5fc); /* Bleu clair et bleu foncé */
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Arrière-plan animé */
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-size: cover;
+            animation: bgAnimation 15s infinite alternate;
+        }
+
+        @keyframes bgAnimation {
+            0% { background-image: url('img/1.jpg'); }
+            25% { background-image: url('img/2.jpg'); }
+            50% { background-image: url('img/3.jpg'); }
+            75% { background-image: url('img/4.jpg'); }
+            100% { background-image: url('img/1.jpg'); }
+        }
+
+        /* Header */
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            text-align: center;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            letter-spacing: 2px;
+            color: #fff;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Barre de navigation */
+        nav {
+            background: #0288d1;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            list-style: none;
+            padding: 15px 0;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.3rem;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #4CAF50;
+        }
+
+        /* Conteneur principal */
+        .container {
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            max-width: 900px;
+            color: #333;
+        }
+
+        .container h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #0288d1; /* Bleu foncé pour le titre */
+        }
+
+        .container p {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* Boutons stylisés */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #66bb6a; /* Changement de vert */
+            color: #fff;
+            padding: 14px 28px;
+            margin: 12px;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+        }
+
+        .btn i {
+            margin-right: 10px;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            background: #81c784; /* Teinte de vert plus clair au survol */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ddd;
+            font-size: 1rem;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="background"></div>
+
+    <header>
+        <h1><i class="fas fa-hospital"></i> Gestion de Clinique</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="patients.php"><i class="fas fa-user-injured"></i> Patients</a></li>
+            <li><a href="doctor.php"><i class="fas fa-user-md"></i> Médecins</a></li>
+            <li><a href="infirmier.php"><i class="fas fa-user-nurse"></i> Infirmiers</a></li>
+            <li><a href="comptable.php"><i class="fas fa-calculator"></i> Comptables</a></li>
+            <li><a href="technicien_labo.php"><i class="fas fa-flask"></i> Techniciens</a></li>
+            <li><a href="secretaire.php"><i class="fas fa-user-tie"></i> Secrétaires</a></li>
+            <li><a href="besoin.php"><i class="fas fa-brain"></i> Votre Besoin</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2>Tableau de Contrôle</h2>
+        <p>Utilisez les boutons ci-dessous pour gérer les différents personnels de votre clinique.</p>
+        <a href="doctor.php" class="btn"><i class="fas fa-user-md"></i> Gérer Médecins</a>
+        <a href="patients.php" class="btn"><i class="fas fa-user-injured"></i> Gérer Patients</a>
+        <a href="infirmier.php" class="btn"><i class="fas fa-user-nurse"></i> Gérer Infirmiers</a>
+        <a href="comptable.php" class="btn"><i class="fas fa-calculator"></i> Gérer Comptables</a>
+        <a href="technicien_labo.php" class="btn"><i class="fas fa-flask"></i> Gérer Techniciens</a>
+        <a href="secretaire.php" class="btn"><i class="fas fa-user-tie"></i> Gérer Secrétaires</a>
+        <a href="besoin.php" class="btn"><i class="fas fa-brain"></i> Votre Besoin</a>
+    </div>
+    
+
+    <footer>
+        <p>&copy; 2024 Gestion des Patients et Médecins. Tous droits réservés.</p>
+    </footer>
+
+</body>
+
 </html>

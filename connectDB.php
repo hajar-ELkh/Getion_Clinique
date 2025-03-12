@@ -2,7 +2,7 @@
 $host = 'localhost';
 $db = 'gestion_clinique';
 $user = 'root';
-$pass = '';
+$pass = '......';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
@@ -10,5 +10,5 @@ try {
 } catch (PDOException $e) {
     die("Erreur : " . $e->getMessage());
 }
-echo "Connexion réussie à la base de données.\n";
+echo "";
 ?>
